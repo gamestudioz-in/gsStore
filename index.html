@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GS Store</title>
+    <base href="/">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pageTransition {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .animate-slideInLeft {
+            animation: slideInLeft 0.5s ease-out;
+        }
+        
+        .animate-scaleIn {
+            animation: scaleIn 0.4s ease-out;
+        }
+
+        .animate-pageTransition {
+            animation: pageTransition 0.5s ease-out;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.2);
+        }
+        .modal {
+            display: none !important;
+        }
+        .modal.active {
+            display: flex !important;
+        }
+        .app-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 20%;
+            object-fit: cover;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .app-logo-large {
+            width: 80px;
+            height: 80px;
+            border-radius: 20%;
+            object-fit: cover;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .fullscreen-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            z-index: 50;
+            overflow-y: auto;
+        }
+        .fullscreen-modal.active {
+            display: block !important;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #000000 0%, #1f2937 100%);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .download-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            transition: all 0.3s ease;
+        }
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+        }
+        .section-animate {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        .section-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .star-interactive {
+            color: #d1d5db;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .star-interactive.active {
+            color: #fbbf24;
+        }
+        .star-interactive:hover {
+            color: #fbbf24;
+            transform: scale(1.1);
+        }
+        .feature-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+        .screenshot-image {
+            min-width: 280px;
+            width: 280px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+        .screenshot-image:hover {
+            transform: scale(1.05);
+        }
+        @media (min-width: 768px) {
+            .screenshot-image {
+                min-width: 320px;
+                width: 320px;
+                height: 200px;
+            }
+        }
+        @media (min-width: 1024px) {
+            .screenshot-image {
+                min-width: 360px;
+                width: 360px;
+                height: 220px;
+            }
+        }
+        .youtube-video {
+            width: 100%;
+            height: 200px;
+            border-radius: 12px;
+        }
+        @media (min-width: 768px) {
+            .youtube-video {
+                height: 300px;
+            }
+        }
+        @media (min-width: 1024px) {
+            .youtube-video {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 animate-slideInLeft">
+        <div class="max-w-6xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center animate-scaleIn">
+                        <i class="fas fa-gamepad text-white text-sm"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold text-gray-900">GS Store</h1>
+                </div>
+                <div class="relative w-72">
+                    <input type="text" placeholder="Search games..." class="w-full px-4 py-2 text-sm rounded-lg bg-gray-100 border-0 focus:ring-2 focus:ring-black focus:bg-white transition-all">
+                    <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-6">
+        <div class="mb-6 animate-fadeInUp">
+            <h2 class="text-xl font-semibold text-gray-900">Featured Games</h2>
+            <p class="text-gray-600 text-sm mt-1">Discover amazing games</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6" id="gameGrid">
+            <!-- Games will be populated by JavaScript -->
+        </div>
+    </main>
+
+    <!-- Fullscreen App Details -->
+    <div id="appModal" class="modal fullscreen-modal animate-pageTransition">
+        <div class="min-h-screen bg-white">
+            <!-- Header -->
+            <div class="sticky top-0 bg-white border-b border-gray-200 z-10">
+                <div class="max-w-4xl mx-auto px-4 md:px-6 py-4">
+                    <div class="flex items-center justify-between">
+                        <button onclick="closeModal()" class="flex items-center text-black font-medium hover:text-gray-700 transition-colors">
+                            <i class="fas fa-arrow-left mr-2"></i>
+                            Back
+                        </button>
+                        <button onclick="showDownloadModal()" class="download-btn text-white px-6 py-2 rounded-lg font-semibold flex items-center space-x-2">
+                            <i class="fas fa-download"></i>
+                            <span>Download</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="max-w-4xl mx-auto px-4 md:px-6 py-6">
+                <!-- App Header -->
+                <div class="flex flex-col md:flex-row md:items-start space-y-4 md:space-y-0 md:space-x-6 mb-8 section-animate">
+                    <img id="modalLogo" class="app-logo-large mx-auto md:mx-0 flex-shrink-0" alt="Game Logo">
+                    <div class="flex-1 text-center md:text-left">
+                        <h1 id="modalTitle" class="text-3xl font-bold text-gray-900 mb-2"></h1>
+                        <p id="modalDeveloper" class="text-gray-600 text-lg mb-3"></p>
+                        <div class="flex flex-wrap justify-center md:justify-start items-center gap-4 text-sm text-gray-500 mb-3">
+                            <div class="flex items-center">
+                                <span id="modalRatingNum" class="mr-1 font-semibold text-gray-800"></span>
+                                <div class="flex text-yellow-400" id="modalRating"></div>
+                            </div>
+                            <span id="modalDownloads" class="font-medium"></span>
+                            <span id="modalAge" class="bg-gray-900 text-white px-3 py-1 rounded-full font-medium"></span>
+                        </div>
+                        <div class="flex flex-wrap justify-center md:justify-start gap-2">
+                            <span class="bg-gray-100 px-3 py-1 rounded-full text-sm font-medium" id="modalCategory"></span>
+                            <span class="bg-gray-100 px-3 py-1 rounded-full text-sm font-medium" id="modalSize"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Requirements Note -->
+                <div class="bg-blue-50 border border-blue-200 text-blue-800 rounded-lg p-4 mb-8 section-animate">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-mobile-alt text-blue-600"></i>
+                        <div>
+                            <h4 class="font-semibold text-blue-800">System Requirements</h4>
+                            <p id="modalRequirements" class="text-blue-700 text-sm"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Screenshots -->
+                <div class="mb-8 section-animate">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Screenshots</h3>
+                    <div class="flex space-x-4 overflow-x-auto pb-4" id="modalScreenshots"></div>
+                </div>
+
+                <!-- Description -->
+                <div class="mb-8 section-animate">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">About this game</h3>
+                    <p id="modalDescription" class="text-gray-700 leading-relaxed"></p>
+                </div>
+
+                <!-- YouTube Video -->
+                <div class="mb-8 section-animate" id="youtubeVideoSection" style="display: none;">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Gameplay Video</h3>
+                    <iframe id="youtubeVideo" class="youtube-video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+
+                <!-- Game Information -->
+                <div class="bg-gray-50 rounded-lg p-4 mb-8 section-animate">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Game Information</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">Size</p>
+                            <p id="modalSizeDetail" class="font-semibold text-gray-900"></p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">Version</p>
+                            <p id="modalVersion" class="font-semibold text-gray-900"></p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">Downloads</p>
+                            <p id="modalDownloadsDetail" class="font-semibold text-gray-900"></p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">Language</p>
+                            <p id="modalLanguage" class="font-semibold text-gray-900"></p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">Price</p>
+                            <p id="modalPrice" class="font-semibold text-green-600"></p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 mb-1">Updated</p>
+                            <p id="modalUpdated" class="font-semibold text-gray-900">Aug 15, 2025</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Version History -->
+                <div class="bg-white border border-gray-200 rounded-lg p-4 mb-8 section-animate">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Version History</h3>
+                    <div id="versionHistory" class="space-y-4">
+                        <!-- Version history will be populated by JavaScript -->
+                    </div>
+                    <button id="seeMoreVersions" onclick="toggleVersionHistory()" class="mt-4 text-black font-medium hover:text-gray-700 transition-colors text-sm hidden">
+                        <i class="fas fa-chevron-down mr-1"></i>
+                        See More Versions
+                    </button>
+                </div>
+
+                <!-- Rating Section -->
+                <div class="bg-white border border-gray-200 rounded-lg p-4 mb-8 section-animate">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Rate this game</h3>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="flex space-x-1" id="userRating">
+                            <i class="fas fa-star star-interactive text-xl" data-rating="1"></i>
+                            <i class="fas fa-star star-interactive text-xl" data-rating="2"></i>
+                            <i class="fas fa-star star-interactive text-xl" data-rating="3"></i>
+                            <i class="fas fa-star star-interactive text-xl" data-rating="4"></i>
+                            <i class="fas fa-star star-interactive text-xl" data-rating="5"></i>
+                        </div>
+                        <span id="ratingText" class="text-gray-600 font-medium"></span>
+                    </div>
+                    <button onclick="submitRating()" class="bg-black text-white px-4 py-2 rounded-lg font-medium hover:bg-gray-800 transition-colors">
+                        Submit Rating
+                    </button>
+                </div>
+
+                <!-- Developer Feedback -->
+                <div class="bg-white border border-gray-200 rounded-lg p-4 section-animate">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Send Feedback to Developer</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Game Name</label>
+                            <input type="text" id="feedbackGameName" class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-600 cursor-not-allowed" readonly placeholder="Game name will appear here">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                            <input type="text" id="feedbackName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-black transition-all" placeholder="Enter your name" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Your Email (optional)</label>
+                            <input type="email" id="feedbackEmail" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-black transition-all" placeholder="your.email@example.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Feedback Type</label>
+                            <select id="feedbackType" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-black transition-all">
+                                <option value="bug">Bug Report</option>
+                                <option value="suggestion">Suggestion</option>
+                                <option value="appreciation">Appreciation</option>
+                                <option value="question">Question</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Your Message</label>
+                            <textarea id="feedbackMessage" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-black transition-all" placeholder="Please describe your feedback in detail..." required></textarea>
+                        </div>
+                        <button onclick="sendFeedback()" class="w-full bg-black text-white px-4 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors flex items-center justify-center space-x-2">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Send Feedback via Gmail</span>
+                        </button>
+                        <p class="text-xs text-gray-500 text-center">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            This will open Gmail app with your feedback pre-filled - just tap Send!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Responsive Download Modal -->
+    <div id="downloadModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-[100] p-4">
+        <div class="glass-effect rounded-3xl w-full max-w-sm md:max-w-md lg:max-w-lg shadow-2xl animate-scaleIn">
+            <div class="p-4 md:p-6 lg:p-8">
+                <div class="text-center mb-6 md:mb-8">
+                    <div class="w-16 h-16 md:w-20 md:h-20 gradient-bg rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <i class="fas fa-download text-white text-xl md:text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-2">Download Game</h3>
+                    <p id="downloadAppName" class="text-gray-600 font-medium text-sm md:text-base"></p>
+                </div>
+
+                <div class="bg-white bg-opacity-70 rounded-2xl p-4 md:p-6 mb-6 md:mb-8 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-file-archive text-blue-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-900 text-sm md:text-base">Game Package</p>
+                                <p id="downloadFileType" class="text-xs md:text-sm text-gray-500">APK File</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p id="downloadSize" class="font-semibold text-gray-900 text-sm md:text-base"></p>
+                            <p id="downloadVersion" class="text-xs md:text-sm text-gray-500"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="border-t border-gray-200 pt-4">
+                        <div class="flex items-center justify-between text-xs md:text-sm">
+                            <span class="text-gray-600">Compatibility</span>
+                            <span class="text-gray-900 font-medium">Android 6.0+</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs md:text-sm mt-2">
+                            <span class="text-gray-600">Language</span>
+                            <span class="text-gray-900 font-medium">English</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Download Note -->
+                <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-3 md:p-4 mb-4 md:mb-6">
+                    <div class="flex items-start space-x-2">
+                        <i class="fas fa-info-circle text-yellow-600 mt-0.5"></i>
+                        <p id="downloadNote" class="text-yellow-800 text-xs md:text-sm font-medium">Download from any one of the links</p>
+                    </div>
+                </div>
+
+                <!-- Password Protection Note -->
+                <div id="passwordSection" class="bg-red-50 border border-red-200 rounded-xl p-3 md:p-4 mb-4 md:mb-6" style="display: none;">
+                    <div class="flex items-start space-x-2 mb-3">
+                        <i class="fas fa-lock text-red-600 mt-0.5"></i>
+                        <p id="passwordNote" class="text-red-800 text-xs md:text-sm font-medium">This file is password protected</p>
+                    </div>
+                    <a id="passwordVideoLink" href="#" target="_blank" class="inline-flex items-center text-xs md:text-sm text-blue-600 hover:text-blue-800 font-medium">
+                        <i class="fab fa-youtube mr-1"></i>
+                        Watch Password Video
+                    </a>
+                </div>
+
+                <div class="space-y-3 md:space-y-4 mb-4 md:mb-6">
+                    <button id="primaryDownloadBtn" onclick="handleDownload('primary')" class="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 md:py-4 rounded-2xl font-bold text-sm md:text-lg hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center space-x-2">
+                        <i class="fas fa-download"></i>
+                        <span>Primary Download</span>
+                    </button>
+                    <button id="alternateDownloadBtn" onclick="handleDownload('alternate')" class="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 md:py-4 rounded-2xl font-bold text-sm md:text-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center space-x-2">
+                        <i class="fas fa-server"></i>
+                        <span>Mirror Download</span>
+                    </button>
+                </div>
+
+                <button onclick="closeDownloadModal()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 md:py-3 rounded-2xl font-semibold transition-colors text-sm md:text-base">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subscribe Modal -->
+    <div id="subscribeModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-[110]">
+        <div class="glass-effect rounded-3xl max-w-md mx-4 w-full shadow-2xl animate-scaleIn">
+            <div class="p-8 text-center">
+                <div class="w-20 h-20 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <i class="fab fa-youtube text-white text-3xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-3">Subscribe to Download</h3>
+                <p class="text-gray-600 mb-8 leading-relaxed">Subscribe to our YouTube channel to unlock downloads and get the latest game updates!</p>
+                
+                <div class="bg-white bg-opacity-70 rounded-2xl p-6 mb-8">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center">
+                            <img src="logos/gs.jpg" alt="GS Gaming" class="w-full h-full rounded-full object-cover">                       
+                        </div>
+                        <div class="text-left">
+                            <h4 class="font-bold text-gray-900">Game Studioz</h4>
+                            <p class="text-sm text-gray-600">Gaming Channel</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 space-y-2 text-left">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check-circle text-green-500 text-sm"></i>
+                            <span class="text-gray-700 text-sm">Mobile Games</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check-circle text-green-500 text-sm"></i>
+                            <span class="text-gray-700 text-sm">Gameplay tutorials</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check-circle text-green-500 text-sm"></i>
+                            <span class="text-gray-700 text-sm">PPSSPP Textures Pack</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-4">
+                    <button onclick="subscribe()" class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white py-4 rounded-2xl font-bold text-lg hover:from-red-600 hover:to-red-700 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center space-x-2">
+                        <i class="fab fa-youtube"></i>
+                        <span>Subscribe Now</span>
+                    </button>
+                    <button onclick="closeSubscribeModal()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-2xl font-semibold transition-colors">
+                        Maybe Later
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simple Footer --> 
+    <footer class="bg-gray-900 text-white py-4 mt-8"> 
+        <div class="max-w-6xl mx-auto px-4 text-center"> 
+            <p class="text-sm">Developed by <span class="font-semibold">Game Studioz</span></p> 
+        </div> 
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
