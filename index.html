@@ -4,194 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GS Store</title>
-<base href="/gsStore/">
+    <!-- IMPORTANT: No <base href="/"> on GitHub Pages -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes pageTransition {
-            from {
-                opacity: 0;
-                transform: translateX(100%);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .animate-fadeInUp {
-            animation: fadeInUp 0.6s ease-out;
-        }
-        
-        .animate-slideInLeft {
-            animation: slideInLeft 0.5s ease-out;
-        }
-        
-        .animate-scaleIn {
-            animation: scaleIn 0.4s ease-out;
-        }
-
-        .animate-pageTransition {
-            animation: pageTransition 0.5s ease-out;
-        }
-
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.2);
-        }
-        .modal {
-            display: none !important;
-        }
-        .modal.active {
-            display: flex !important;
-        }
-        .app-logo {
-            width: 60px;
-            height: 60px;
-            border-radius: 20%;
-            object-fit: cover;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        .app-logo-large {
-            width: 80px;
-            height: 80px;
-            border-radius: 20%;
-            object-fit: cover;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-        .fullscreen-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: white;
-            z-index: 50;
-            overflow-y: auto;
-        }
-        .fullscreen-modal.active {
-            display: block !important;
-        }
-        .gradient-bg {
-            background: linear-gradient(135deg, #000000 0%, #1f2937 100%);
-        }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .download-btn {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            transition: all 0.3s ease;
-        }
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
-        }
-        .section-animate {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease;
-        }
-        .section-animate.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .star-interactive {
-            color: #d1d5db;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .star-interactive.active {
-            color: #fbbf24;
-        }
-        .star-interactive:hover {
-            color: #fbbf24;
-            transform: scale(1.1);
-        }
-        .feature-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 16px;
-        }
-        .screenshot-image {
-            min-width: 280px;
-            width: 280px;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 12px;
-            transition: transform 0.3s ease;
-        }
-        .screenshot-image:hover {
-            transform: scale(1.05);
-        }
-        @media (min-width: 768px) {
-            .screenshot-image {
-                min-width: 320px;
-                width: 320px;
-                height: 200px;
-            }
-        }
-        @media (min-width: 1024px) {
-            .screenshot-image {
-                min-width: 360px;
-                width: 360px;
-                height: 220px;
-            }
-        }
-        .youtube-video {
-            width: 100%;
-            height: 200px;
-            border-radius: 12px;
-        }
-        @media (min-width: 768px) {
-            .youtube-video {
-                height: 300px;
-            }
-        }
-        @media (min-width: 1024px) {
-            .youtube-video {
-                height: 400px;
-            }
-        }
+        @keyframes fadeInUp { from { opacity:0; transform: translateY(30px);} to { opacity:1; transform: translateY(0);} }
+        @keyframes slideInLeft { from { opacity:0; transform: translateX(-30px);} to { opacity:1; transform: translateX(0);} }
+        @keyframes scaleIn { from { opacity:0; transform: scale(0.9);} to { opacity:1; transform: scale(1);} }
+        @keyframes pageTransition { from { opacity:0; transform: translateX(100%);} to { opacity:1; transform: translateX(0);} }
+        .animate-fadeInUp { animation: fadeInUp 0.6s ease-out; }
+        .animate-slideInLeft { animation: slideInLeft 0.5s ease-out; }
+        .animate-scaleIn { animation: scaleIn 0.4s ease-out; }
+        .animate-pageTransition { animation: pageTransition 0.5s ease-out; }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 15px 35px -10px rgba(0,0,0,0.2); }
+        .modal { display: none !important; }
+        .modal.active { display: flex !important; }
+        .app-logo { width:60px; height:60px; border-radius:20%; object-fit:cover; box-shadow:0 4px 15px rgba(0,0,0,0.2); }
+        .app-logo-large { width:80px; height:80px; border-radius:20%; object-fit:cover; box-shadow:0 4px 15px rgba(0,0,0,0.3); }
+        .fullscreen-modal { position:fixed; top:0; left:0; width:100%; height:100vh; background:white; z-index:50; overflow-y:auto; }
+        .fullscreen-modal.active { display:block !important; }
+        .gradient-bg { background: linear-gradient(135deg, #000000 0%, #1f2937 100%); }
+        .glass-effect { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+        .download-btn { background: linear-gradient(135deg, #10b981 0%, #059669 100%); transition: all 0.3s ease; }
+        .download-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(16,185,129,0.3); }
+        .section-animate { opacity:0; transform: translateY(20px); transition: all 0.6s ease; }
+        .section-animate.visible { opacity:1; transform: translateY(0); }
+        .star-interactive { color:#d1d5db; cursor:pointer; transition: all 0.2s ease; }
+        .star-interactive.active { color:#fbbf24; }
+        .star-interactive:hover { color:#fbbf24; transform: scale(1.1); }
+        .feature-image { width:100%; height:200px; object-fit:cover; border-radius:12px; margin-bottom:16px; }
+        .screenshot-image { min-width:280px; width:280px; height:180px; object-fit:cover; border-radius:12px; transition: transform 0.3s ease; }
+        .screenshot-image:hover { transform: scale(1.05); }
+        @media (min-width: 768px) { .screenshot-image { min-width:320px; width:320px; height:200px; } }
+        @media (min-width: 1024px) { .screenshot-image { min-width:360px; width:360px; height:220px; } }
+        .youtube-video { width:100%; height:200px; border-radius:12px; }
+        @media (min-width: 768px) { .youtube-video { height:300px; } }
+        @media (min-width: 1024px) { .youtube-video { height:400px; } }
     </style>
 </head>
 <body class="bg-white">
@@ -206,7 +55,7 @@
                     <h1 class="text-2xl font-bold text-gray-900">GS Store</h1>
                 </div>
                 <div class="relative w-72">
-                    <input type="text" placeholder="Search games..." class="w-full px-4 py-2 text-sm rounded-lg bg-gray-100 border-0 focus:ring-2 focus:ring-black focus:bg-white transition-all">
+                    <input id="searchInput" type="text" placeholder="Search games..." class="w-full px-4 py-2 text-sm rounded-lg bg-gray-100 border-0 focus:ring-2 focus:ring-black focus:bg-white transition-all">
                     <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i>
                 </div>
             </div>
@@ -231,7 +80,7 @@
             <div class="sticky top-0 bg-white border-b border-gray-200 z-10">
                 <div class="max-w-4xl mx-auto px-4 md:px-6 py-4">
                     <div class="flex items-center justify-between">
-                        <button onclick="closeModal()" class="flex items-center text-black font-medium hover:text-gray-700 transition-colors">
+                        <button id="backButton" class="flex items-center text-black font-medium hover:text-gray-700 transition-colors">
                             <i class="fas fa-arrow-left mr-2"></i>
                             Back
                         </button>
@@ -329,9 +178,7 @@
                 <!-- Version History -->
                 <div class="bg-white border border-gray-200 rounded-lg p-4 mb-8 section-animate">
                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Version History</h3>
-                    <div id="versionHistory" class="space-y-4">
-                        <!-- Version history will be populated by JavaScript -->
-                    </div>
+                    <div id="versionHistory" class="space-y-4"></div>
                     <button id="seeMoreVersions" onclick="toggleVersionHistory()" class="mt-4 text-black font-medium hover:text-gray-700 transition-colors text-sm hidden">
                         <i class="fas fa-chevron-down mr-1"></i>
                         See More Versions
@@ -492,7 +339,8 @@
                 <div class="bg-white bg-opacity-70 rounded-2xl p-6 mb-8">
                     <div class="flex items-center space-x-4">
                         <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center">
-                            <img src="logos/gs.jpg" alt="GS Gaming" class="w-full h-full rounded-full object-cover">                       
+                            <!-- Use explicit relative path -->
+                            <img src="./logos/gs.jpg" alt="GS Gaming" class="w-full h-full rounded-full object-cover">                       
                         </div>
                         <div class="text-left">
                             <h4 class="font-bold text-gray-900">Game Studioz</h4>
@@ -535,6 +383,7 @@
         </div> 
     </footer>
     
-    <script src="script.js"></script>
+    <!-- IMPORTANT: explicit relative path -->
+    <script src="./script.js"></script>
 </body>
 </html>
