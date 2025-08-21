@@ -576,42 +576,69 @@ ${userName}
 This feedback was sent via GS Store App
 Date: ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`;
 
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  // Compose URLs
+  const mailtoUrl = `mailto:${encodeURIComponent(developerEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+  const gmailAppUrl = `googlegmail://co?to=${encodeURIComponent(developerEmail)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+  const gmailWebUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(developerEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
 
-  if (isMobile) {
-    const gmailAppUrl = `googlegmail://co?to=${encodeURIComponent(developerEmail)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+  const isAndroid = /Android/i.test(navigator.userAgent);
+  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-    const testLink = document.createElement('a');
-    testLink.href = gmailAppUrl;
-    testLink.style.display = 'none';
-    document.body.appendChild(testLink);
+  // Strategy:
+  // - Android: try Gmail app -> mailto -> Gmail web
+  // - iOS: Gmail app (if installed) often works; else mailto opens Apple Mail; last, Gmail web
+  // - Desktop: Gmail web
+  if (isAndroid || isIOS) {
+    let fellBack = false;
 
+    // Use a short timer to fall back if the app scheme is blocked
+    const fallbackTimer = setTimeout(() => {
+      // Try default mail client
+      fellBack = true;
+      window.location.href = mailtoUrl;
+
+      // After another short delay, if mail client didn’t take over, go to Gmail web
+      setTimeout(() => {
+        // If still on page (heuristic), open Gmail web
+        if (!document.hidden) {
+          window.open(gmailWebUrl, '_blank');
+        }
+      }, 1200);
+    }, 700);
+
+    // Attempt to open Gmail app directly
     try {
-      testLink.click();
+      window.location.href = gmailAppUrl;
+    } catch (e) {
+      // If the protocol is blocked immediately, clear timer and fall back to mailto
+      clearTimeout(fallbackTimer);
+      window.location.href = mailtoUrl;
       setTimeout(() => {
         if (!document.hidden) {
-          const webGmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(developerEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-          window.open(webGmailUrl, '_blank');
+          window.open(gmailWebUrl, '_blank');
         }
-      }, 1000);
-    } catch (error) {
-      const webGmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(developerEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-      window.open(webGmailUrl, '_blank');
-    } finally {
-      document.body.removeChild(testLink);
+      }, 800);
     }
-  } else {
-    const webGmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(developerEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-    window.open(webGmailUrl, '_blank');
-  }
 
-  setTimeout(() => {
-    alert('📧 Gmail opened with your feedback ready to send! Just tap the Send button.');
-    document.getElementById('feedbackName').value = '';
-    document.getElementById('feedbackEmail').value = '';
-    document.getElementById('feedbackMessage').value = '';
-    document.getElementById('feedbackType').selectedIndex = 0;
-  }, 500);
+    // Clear the form right away for smoother UX
+    setTimeout(() => {
+      alert('📧 Opening your email app to send feedback. If it doesn’t open, the Gmail web composer will appear.');
+      document.getElementById('feedbackName').value = '';
+      document.getElementById('feedbackEmail').value = '';
+      document.getElementById('feedbackMessage').value = '';
+      document.getElementById('feedbackType').selectedIndex = 0;
+    }, 300);
+  } else {
+    // Desktop
+    window.open(gmailWebUrl, '_blank');
+    setTimeout(() => {
+      alert('📧 Gmail opened with your feedback ready to send!');
+      document.getElementById('feedbackName').value = '';
+      document.getElementById('feedbackEmail').value = '';
+      document.getElementById('feedbackMessage').value = '';
+      document.getElementById('feedbackType').selectedIndex = 0;
+    }, 300);
+  }
 }
 
 // -------------------- Rating --------------------
