@@ -176,9 +176,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Fix asset paths based on current URL
 function getAssetPath(relativePath) {
-    const isOnGamePage = window.location.pathname.startsWith('/games/');
-    return isOnGamePage ? `../${relativePath}` : relativePath;
+    const currentPath = window.location.pathname;
+    
+    // Check if we're on a game details page
+    if (currentPath.includes('/games/')) {
+        return '../' + relativePath;
+    } else {
+        return relativePath;
+    }
 }
+
 
 // URL Routing Functions
 function handleRouting() {
