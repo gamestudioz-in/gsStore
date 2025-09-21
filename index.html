@@ -13,27 +13,200 @@
         @keyframes slideInLeft { from { opacity:0; transform: translateX(-30px);} to { opacity:1; transform: translateX(0);} }
         @keyframes scaleIn { from { opacity:0; transform: scale(0.9);} to { opacity:1; transform: scale(1);} }
         @keyframes pageTransition { from { opacity:0; transform: translateX(100%);} to { opacity:1; transform: translateX(0);} }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        
         .animate-fadeInUp { animation: fadeInUp 0.6s ease-out; }
         .animate-slideInLeft { animation: slideInLeft 0.5s ease-out; }
         .animate-scaleIn { animation: scaleIn 0.4s ease-out; }
         .animate-pageTransition { animation: pageTransition 0.5s ease-out; }
+        .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        
         .card-hover { transition: all 0.3s ease; }
         .card-hover:hover { transform: translateY(-5px); box-shadow: 0 15px 35px -10px rgba(0,0,0,0.2); }
+        
         .modal { display: none !important; }
         .modal.active { display: flex !important; }
+        
         .app-logo { width:60px; height:60px; border-radius:20%; object-fit:cover; box-shadow:0 4px 15px rgba(0,0,0,0.2); }
         .app-logo-large { width:80px; height:80px; border-radius:20%; object-fit:cover; box-shadow:0 4px 15px rgba(0,0,0,0.3); }
+        
         .fullscreen-modal { position:fixed; top:0; left:0; width:100%; height:100vh; background:white; z-index:50; overflow-y:auto; }
         .fullscreen-modal.active { display:block !important; }
+        
         .gradient-bg { background: linear-gradient(135deg, #000000 0%, #1f2937 100%); }
+        .gradient-accent { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); }
         .glass-effect { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+        
         .download-btn { background: linear-gradient(135deg, #10b981 0%, #059669 100%); transition: all 0.3s ease; }
         .download-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(16,185,129,0.3); }
+        
         .section-animate { opacity:0; transform: translateY(20px); transition: all 0.6s ease; }
         .section-animate.visible { opacity:1; transform: translateY(0); }
+        
         .star-interactive { color:#d1d5db; cursor:pointer; transition: all 0.2s ease; }
         .star-interactive.active { color:#fbbf24; }
         .star-interactive:hover { color:#fbbf24; transform: scale(1.1); }
+        
+        /* Enhanced Search Bar Styles */
+        .search-container {
+            position: relative;
+            max-width: 480px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 48px 12px 16px;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            background: #f8fafc;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        .search-input:focus {
+            background: white;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .search-input::placeholder {
+            color: #64748b;
+            font-weight: 400;
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .search-container:hover .search-icon {
+            color: #3b82f6;
+        }
+        
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            z-index: 50;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 4px;
+            display: none;
+        }
+        
+        .suggestion-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        
+        .suggestion-item:hover {
+            background-color: #f8fafc;
+        }
+        
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* Enhanced Header Styles */
+        .main-header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            color: #111827;
+            letter-spacing: -0.025em;
+        }
+        
+        /* Enhanced Game Grid */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        
+        @media (min-width: 768px) {
+            .game-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .game-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+        
+        /* Enhanced Cards */
+        .game-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #f1f5f9;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: #e2e8f0;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .search-container {
+                max-width: 100%;
+                margin-left: 16px;
+            }
+            
+            .logo-text {
+                font-size: 24px;
+            }
+            
+            .main-header .container {
+                padding: 16px;
+            }
+        }
+        
         .feature-image { width:100%; height:200px; object-fit:cover; border-radius:12px; margin-bottom:16px; }
         .screenshot-image { min-width:280px; width:280px; height:180px; object-fit:cover; border-radius:12px; transition: transform 0.3s ease; }
         .screenshot-image:hover { transform: scale(1.05); }
@@ -44,36 +217,93 @@
         @media (min-width: 1024px) { .youtube-video { height:400px; } }
     </style>
 </head>
-<body class="bg-white">
-    <!-- Header -->
-    <header class="bg-white border-b border-gray-200 animate-slideInLeft">
-        <div class="max-w-6xl mx-auto px-4 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <div class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center animate-scaleIn">
-                        <i class="fas fa-gamepad text-white text-sm"></i>
+<body class="bg-gray-50">
+    <!-- Enhanced Header -->
+    <header class="main-header animate-slideInLeft">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
+                <!-- Logo Section -->
+                <div class="logo-container animate-scaleIn">
+                    <div class="logo-icon">
+                        <i class="fas fa-gamepad text-white text-lg"></i>
                     </div>
-                    <h1 class="text-2xl font-bold text-gray-900">GS Store</h1>
+                    <h1 class="logo-text">GS Store</h1>
                 </div>
-                <div class="relative w-72">
-                    <input id="searchInput" type="text" placeholder="Search games..." class="w-full px-4 py-2 text-sm rounded-lg bg-gray-100 border-0 focus:ring-2 focus:ring-black focus:bg-white transition-all">
-                    <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i>
+                
+                <!-- Enhanced Search Bar -->
+                <div class="search-container">
+                    <input 
+                        id="searchInput" 
+                        type="text" 
+                        placeholder="Search games, creators, or tags..." 
+                        class="search-input"
+                        autocomplete="off"
+                        spellcheck="false"
+                    >
+                    <i class="fas fa-search search-icon" id="searchIcon"></i>
+                    
+                    <!-- Search Suggestions Dropdown -->
+                    <div id="searchSuggestions" class="search-suggestions">
+                        <!-- Suggestions will be populated by JavaScript -->
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="max-w-6xl mx-auto px-4 py-6">
-        <div class="mb-6 animate-fadeInUp">
-            <h2 class="text-xl font-semibold text-gray-900">Featured Games</h2>
-            <p class="text-gray-600 text-sm mt-1">Discover amazing games</p>
+    <!-- Enhanced Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Hero Section -->
+        <div class="mb-12 text-center animate-fadeInUp">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">
+                Discover Amazing Games
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Explore our curated collection of mobile games, from action-packed adventures to brain-teasing puzzles
+            </p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6" id="gameGrid">
-            <!-- Games will be populated by JavaScript -->
+        
+        <!-- Stats Section -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12 animate-fadeInUp">
+            <div class="text-center p-6 bg-white rounded-2xl shadow-sm border border-gray-100">
+                <div class="text-3xl font-bold text-blue-600 mb-2">4</div>
+                <div class="text-gray-600 font-medium">Games Available</div>
+            </div>
+            <div class="text-center p-6 bg-white rounded-2xl shadow-sm border border-gray-100">
+                <div class="text-3xl font-bold text-green-600 mb-2">70K+</div>
+                <div class="text-gray-600 font-medium">Downloads</div>
+            </div>
+            <div class="text-center p-6 bg-white rounded-2xl shadow-sm border border-gray-100">
+                <div class="text-3xl font-bold text-purple-600 mb-2">4.4★</div>
+                <div class="text-gray-600 font-medium">Average Rating</div>
+            </div>
+            <div class="text-center p-6 bg-white rounded-2xl shadow-sm border border-gray-100">
+                <div class="text-3xl font-bold text-orange-600 mb-2">100%</div>
+                <div class="text-gray-600 font-medium">Free Games</div>
+            </div>
+        </div>
+        
+        <!-- Featured Games Section -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900">Featured Games</h3>
+                    <p class="text-gray-600 mt-1">Hand-picked favorites from our collection</p>
+                </div>
+                <button class="flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium transition-colors">
+                    <span>View All</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            
+            <!-- Enhanced Game Grid -->
+            <div class="game-grid" id="gameGrid">
+                <!-- Games will be populated by JavaScript -->
+            </div>
         </div>
     </main>
 
+    <!-- All other modals remain the same -->
     <!-- Fullscreen App Details -->
     <div id="appModal" class="modal fullscreen-modal animate-pageTransition">
         <div class="min-h-screen bg-white">
@@ -377,11 +607,54 @@
         </div>
     </div>
 
-    <!-- Simple Footer --> 
-    <footer class="bg-gray-900 text-white py-4 mt-8"> 
-        <div class="max-w-6xl mx-auto px-4 text-center"> 
-            <p class="text-sm">Developed by <span class="font-semibold">Game Studioz</span></p> 
-        </div> 
+    <!-- Enhanced Footer --> 
+    <footer class="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-12 mt-16"> 
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> 
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                            <i class="fas fa-gamepad text-gray-900"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">GS Store</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Your ultimate destination for amazing mobile games. Discover, download, and enjoy the best gaming experiences.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Featured Games</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Categories</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Top Rated</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">New Releases</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Connect With Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center hover:bg-red-700 transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center hover:bg-green-700 transition-colors">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-8 text-center">
+                <p class="text-gray-400 text-sm">
+                    © 2025 <span class="font-semibold text-white">Game Studioz</span>. All rights reserved.
+                </p>
+            </div>
+        </div>
     </footer>
     
     <!-- IMPORTANT: explicit relative path -->
