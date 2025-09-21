@@ -16,10 +16,16 @@
     margin-bottom: 16px;
 }
 
+.skeleton-header-text { /* Added for better skeleton representation of text */
+    height: 24px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
 .skeleton-search {
     height: 40px;
     width: 288px;
-    border-radius: 8px;
+    border-radius: 9999px; /* Matches the enhanced search bar */
 }
 
 .skeleton-title {
