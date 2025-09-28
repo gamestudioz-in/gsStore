@@ -1,80 +1,78 @@
-/* Loading Skeleton Styles with Shimmer Animation */
-.skeleton {
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
+/* loading.css */
+/* Overlay loader */
+.gs-loader {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  transition: opacity 280ms ease, visibility 280ms ease;
+  opacity: 1;
+  visibility: visible;
 }
 
-@keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
+.gs-loader.hidden {
+  opacity: 0;
+  visibility: hidden;
 }
 
-.skeleton-header {
-    height: 40px;
-    border-radius: 8px;
-    margin-bottom: 16px;
+.gs-loader-content {
+  width: min(680px, 92vw);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
 }
 
-.skeleton-search {
-    height: 40px;
-    width: 288px;
-    border-radius: 8px;
+@media (min-width: 768px) {
+  .gs-loader-content { grid-template-columns: 1fr 1fr; }
 }
 
-.skeleton-title {
-    height: 24px;
-    width: 200px;
-    border-radius: 4px;
-    margin-bottom: 8px;
+.gs-shimmer {
+  height: 120px;
+  border-radius: 16px;
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 37%, #f3f4f6 63%);
+  background-size: 400% 100%;
+  animation: gs-shimmer 1.2s ease-in-out infinite;
+  border: 1px solid #eef2f7;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 
-.skeleton-subtitle {
-    height: 16px;
-    width: 150px;
-    border-radius: 4px;
-    margin-bottom: 24px;
+.gs-spinner-wrap {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gs-spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid #e5e7eb;
+  border-top-color: #111827;
+  border-radius: 50%;
+  animation: gs-spin 0.9s linear infinite;
 }
 
-.skeleton-card {
-    background: white;
-    border-radius: 16px;
-    padding: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+@keyframes gs-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@keyframes gs-spin {
+  to { transform: rotate(360deg); }
 }
 
-.skeleton-image {
-    height: 120px;
-    border-radius: 12px;
-    margin-bottom: 12px;
+@media (prefers-reduced-motion: reduce) {
+  .gs-shimmer { animation: none; }
+  .gs-spinner { animation: none; }
 }
 
-.skeleton-card-title {
-    height: 18px;
-    border-radius: 4px;
-    margin-bottom: 8px;
-}
-
-.skeleton-card-subtitle {
-    height: 14px;
-    width: 80%;
-    border-radius: 4px;
-    margin-bottom: 8px;
-}
-
-.skeleton-card-details {
-    height: 12px;
-    width: 60%;
-    border-radius: 4px;
-}
-
-.content-hidden {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.content-visible {
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 0.5s ease-in-out;
-}
+/* Optional: per-grid skeleton style (kept for reuse) */
+.skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+.skeleton-card { background: white; border-radius: 16px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.skeleton-image { height: 120px; border-radius: 12px; margin-bottom: 12px; }
+.skeleton-card-title { height: 18px; border-radius: 4px; margin-bottom: 8px; }
+.skeleton-card-subtitle { height: 14px; width: 80%; border-radius: 4px; margin-bottom: 8px; }
+.skeleton-card-details { height: 12px; width: 60%; border-radius: 4px; }
