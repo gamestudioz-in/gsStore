@@ -469,7 +469,7 @@ function closeDownloadModal() {
 }
 
 function handleDownload(type) {
-  const isSubscribed = sessionStorage.getItem('gs_store_subscribed') === 'true';
+  const isSubscribed = localStorage.getItem('gs_store_subscribed') === 'true';
 
   if (!isSubscribed) {
     closeDownloadModal();
@@ -495,7 +495,7 @@ function subscribe() {
   const youtubeChannelUrl = 'https://youtube.com/@gamestudioz?feature=shared';
   const youtubeAppUrl = 'https://youtube.com/@gamestudioz?feature=shared';
 
-  sessionStorage.setItem('gs_store_subscribed', 'true');
+  localStorage.setItem('gs_store_subscribed', 'true');
   closeSubscribeModal();
 
   const link = document.createElement('a');
