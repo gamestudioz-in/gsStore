@@ -469,7 +469,9 @@ function closeDownloadModal() {
 }
 
 function handleDownload(type) {
-  const isSubscribed = sessionStorage.getItem('gs_store_subscribed') === 'true';
+  // --- MODIFIED ---
+  const isSubscribed = localStorage.getItem('gs_store_subscribed') === 'true';
+  // --- END MODIFIED ---
 
   if (!isSubscribed) {
     closeDownloadModal();
@@ -495,7 +497,9 @@ function subscribe() {
   const youtubeChannelUrl = 'https://youtube.com/@gamestudioz?feature=shared';
   const youtubeAppUrl = 'https://youtube.com/@gamestudioz?feature=shared';
 
-  sessionStorage.setItem('gs_store_subscribed', 'true');
+  // --- MODIFIED ---
+  localStorage.setItem('gs_store_subscribed', 'true');
+  // --- END MODIFIED ---
   closeSubscribeModal();
 
   const link = document.createElement('a');
@@ -768,3 +772,4 @@ document.addEventListener('keydown', function (e) {
     else if (document.getElementById('appModal').classList.contains('active')) navigateToHome(); // triggers hashchange -> close
   }
 });
+
